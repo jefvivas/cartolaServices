@@ -27,3 +27,4 @@ export class LambdaStack extends Stack {
     this.cartolaLambdaIntegration = new LambdaIntegration(cartolaLambda);
   }
 }
+  

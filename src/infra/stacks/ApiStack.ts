@@ -10,8 +10,8 @@ export class ApiStack extends Stack {
   constructor(scope: Construct, id: string, props: ApiStackProps) {
     super(scope, id, props);
 
-    const api = new RestApi(this, "CartolaApi", {});
-    const cartolaResource = api.root.addResource("hello");
-    cartolaResource.api.root.addMethod("GET", props.cartolaLambdaIntegration);
+    const api = new RestApi(this, "CartolaApi");
+    const cartolaResource = api.root.addResource("cartola");
+    cartolaResource.addMethod("GET", props.cartolaLambdaIntegration);
   }
 }
