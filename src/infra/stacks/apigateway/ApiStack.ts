@@ -11,7 +11,7 @@ export class ApiStack extends Stack {
     super(scope, id, props);
 
     const api = new RestApi(this, "CartolaApi");
-    const cartolaResource = api.root.addResource("cartola");
-    cartolaResource.addMethod("GET", props.cartolaLambdaIntegration);
+    const cartolaResource = api.root.addResource("upload-teams");
+    cartolaResource.addMethod("POST", props.cartolaLambdaIntegration);
   }
 }
