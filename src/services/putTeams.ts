@@ -52,9 +52,9 @@ async function handler(context: Context, event: APIGatewayProxyEvent) {
   }
 
   const response: APIGatewayProxyResult = {
-    statusCode: 200,
+    statusCode: 201,
     body: JSON.stringify({
-      message: "Hello World",
+      message: "Teams created successfully",
     }),
   };
   return response;
