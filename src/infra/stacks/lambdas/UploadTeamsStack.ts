@@ -1,4 +1,4 @@
-import { Stack, StackProps } from "aws-cdk-lib";
+import { Duration, Stack, StackProps } from "aws-cdk-lib";
 import { LambdaIntegration } from "aws-cdk-lib/aws-apigateway";
 import { ITable } from "aws-cdk-lib/aws-dynamodb";
 import { Effect, PolicyStatement } from "aws-cdk-lib/aws-iam";
@@ -20,10 +20,11 @@ export class LambdaStack extends Stack {
     const cartolaLambda = new NodejsFunction(this, "CartolaLambda", {
       runtime: Runtime.NODEJS_18_X,
       handler: "handler",
-      entry: join(__dirname, "..", "..", "services", "hello.ts"),
+      entry: join(__dirname, "..", "..", "..", "services", "putTeams.ts"),
       environment: {
         TABLE_NAME: props.table.tableName,
       },
+      timeout: Duration.seconds(10),
     });
 
     cartolaLambda.addToRolePolicy(
