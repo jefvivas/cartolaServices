@@ -3,7 +3,7 @@ import {
   ScanCommand,
   UpdateItemCommand,
 } from "@aws-sdk/client-dynamodb";
-import { unmarshall, marshall } from "@aws-sdk/util-dynamodb";
+import { marshall } from "@aws-sdk/util-dynamodb";
 
 const ddbClient = new DynamoDBClient({ region: "sa-east-1" });
 

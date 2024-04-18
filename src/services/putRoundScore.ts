@@ -9,6 +9,7 @@ import axios from "axios";
 import { getTeamsIds } from "../database/getTeamsIds";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 import { putNewScore } from "../database/putNewScore";
+import { getItems } from "../database/getItems";
 
 const ddbClient = new DynamoDBClient({ region: "sa-east-1" });
 
@@ -46,16 +47,8 @@ async function handler(
 
     const roundScore = Number(axiosResponse.data.pontos).toFixed(2);
 
-    const getItemParams = {
-      TableName: "CartolaTable",
-      Key: marshall({ id: teamsIds[i] }),
-    };
-    const { Item } = await ddbClient.send(new GetItemCommand(getItemParams));
-
-    if (!Item) {
-      throw new Error("Team not found");
-    }
-    const team = unmarshall(Item);
+    const item = await getItems(teamsIds[i]);
+    const team = unmarshall(item);
 
     await putNewScore(team.scores, roundScore, teamsIds[i]);
   }
