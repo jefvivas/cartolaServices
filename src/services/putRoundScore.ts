@@ -1,7 +1,16 @@
 import { APIGatewayProxyResult, APIGatewayProxyEvent } from "aws-lambda";
+import {
+  DynamoDBClient,
+  GetItemCommand,
+  UpdateItemCommand,
+} from "@aws-sdk/client-dynamodb";
 
 import axios from "axios";
 import { getTeamsIds } from "../database/getTeamsIds";
+import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
+import { putNewScore } from "../database/putNewScore";
+
+const ddbClient = new DynamoDBClient({ region: "sa-east-1" });
 
 async function handler(
   event: APIGatewayProxyEvent
@@ -30,20 +39,31 @@ async function handler(
 
   const teamsIds = await getTeamsIds();
 
-  console.log(teamsIds);
-
   for (let i = 0; i < teamsIds.length; i++) {
-    const roundScore = await axios.get(
+    const axiosResponse = await axios.get(
       `https://api.cartola.globo.com/time/id/${teamsIds[i]}/${round}`
     );
-  }
 
-  //do something
+    const roundScore = Number(axiosResponse.data.pontos).toFixed(2);
+
+    const getItemParams = {
+      TableName: "CartolaTable",
+      Key: marshall({ id: teamsIds[i] }),
+    };
+    const { Item } = await ddbClient.send(new GetItemCommand(getItemParams));
+
+    if (!Item) {
+      throw new Error("Team not found");
+    }
+    const team = unmarshall(Item);
+
+    await putNewScore(team.scores, roundScore, teamsIds[i]);
+  }
 
   const response: APIGatewayProxyResult = {
     statusCode: 201,
     body: JSON.stringify({
-      message: "Teams created successfully",
+      message: "Scored successfully inserted",
     }),
   };
   return response;

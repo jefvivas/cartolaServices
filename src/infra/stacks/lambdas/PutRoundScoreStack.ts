@@ -41,7 +41,12 @@ export class PutRoundScoreStack extends Stack {
     putRoundScoreLambda.addToRolePolicy(
       new PolicyStatement({
         effect: Effect.ALLOW,
-        actions: ["dynamodb:PutItem", "dynamodb:Scan"],
+        actions: [
+          "dynamodb:PutItem",
+          "dynamodb:Scan",
+          "dynamodb:UpdateItem",
+          "dynamodb:GetItem",
+        ],
         resources: [props.table.tableArn],
       })
     );
