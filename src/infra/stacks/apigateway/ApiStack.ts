@@ -3,7 +3,8 @@ import { LambdaIntegration, RestApi } from "aws-cdk-lib/aws-apigateway";
 import { Construct } from "constructs";
 
 interface ApiStackProps extends StackProps {
-  cartolaLambdaIntegration: LambdaIntegration;
+  uploadTeamsLambdaIntegration: LambdaIntegration;
+  putRoundScoreLambdaIntegration: LambdaIntegration;
 }
 
 export class ApiStack extends Stack {
@@ -11,7 +12,14 @@ export class ApiStack extends Stack {
     super(scope, id, props);
 
     const api = new RestApi(this, "CartolaApi");
-    const cartolaResource = api.root.addResource("upload-teams");
-    cartolaResource.addMethod("POST", props.cartolaLambdaIntegration);
+
+    const uploadTeamsResource = api.root.addResource("upload-teams");
+    uploadTeamsResource.addMethod("POST", props.uploadTeamsLambdaIntegration);
+
+    const putRoundScoreResource = api.root.addResource("put-round-score");
+    putRoundScoreResource.addMethod(
+      "GET",
+      props.putRoundScoreLambdaIntegration
+    );
   }
 }

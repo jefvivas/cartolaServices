@@ -7,17 +7,17 @@ import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Construct } from "constructs";
 import { join } from "path";
 
-interface LambdaStackProps extends StackProps {
+interface UploadTeamsStackProps extends StackProps {
   table: ITable;
 }
 
-export class LambdaStack extends Stack {
-  public readonly cartolaLambdaIntegration: LambdaIntegration;
+export class UploadTeamsLambdaStack extends Stack {
+  public readonly uploadTeamsLambdaIntegration: LambdaIntegration;
 
-  constructor(scope: Construct, id: string, props: LambdaStackProps) {
+  constructor(scope: Construct, id: string, props: UploadTeamsStackProps) {
     super(scope, id, props);
 
-    const cartolaLambda = new NodejsFunction(this, "CartolaLambda", {
+    const uploadTeamsLambda = new NodejsFunction(this, "UploadTeamsLambda", {
       runtime: Runtime.NODEJS_18_X,
       handler: "handler",
       entry: join(__dirname, "..", "..", "..", "services", "putTeams.ts"),
@@ -27,13 +27,15 @@ export class LambdaStack extends Stack {
       timeout: Duration.seconds(10),
     });
 
-    cartolaLambda.addToRolePolicy(
+    uploadTeamsLambda.addToRolePolicy(
       new PolicyStatement({
         effect: Effect.ALLOW,
         actions: ["dynamodb:PutItem"],
         resources: [props.table.tableArn],
       })
     );
-    this.cartolaLambdaIntegration = new LambdaIntegration(cartolaLambda);
+    this.uploadTeamsLambdaIntegration = new LambdaIntegration(
+      uploadTeamsLambda
+    );
   }
 }
