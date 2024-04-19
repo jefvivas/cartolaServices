@@ -28,7 +28,7 @@ export class PutRoundScoreStack extends Stack {
           "..",
           "..",
           "..",
-          "services",
+          "controllers",
           "putRoundScore.ts"
         ),
         environment: {

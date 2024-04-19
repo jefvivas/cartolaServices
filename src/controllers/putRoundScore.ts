@@ -9,7 +9,7 @@ import axios from "axios";
 import { getTeamsIds } from "../database/getTeamsIds";
 import { unmarshall } from "@aws-sdk/util-dynamodb";
 import { putNewScore } from "../database/putNewScore";
-import { getItems } from "../database/getItems";
+import { getItems } from "../repository/getItemsById";
 
 const ddbClient = new DynamoDBClient({ region: "sa-east-1" });
 

@@ -20,7 +20,7 @@ export class UploadTeamsLambdaStack extends Stack {
     const uploadTeamsLambda = new NodejsFunction(this, "UploadTeamsLambda", {
       runtime: Runtime.NODEJS_18_X,
       handler: "handler",
-      entry: join(__dirname, "..", "..", "..", "services", "putTeams.ts"),
+      entry: join(__dirname, "..", "..", "..", "controllers", "putTeams.ts"),
       environment: {
         TABLE_NAME: props.table.tableName,
       },
