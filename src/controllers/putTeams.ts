@@ -1,6 +1,7 @@
 import { APIGatewayProxyResult, APIGatewayProxyEvent } from "aws-lambda";
 import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
 import axios from "axios";
+import { postTeam } from "../repository/postTeam";
 
 const ddbClient = new DynamoDBClient({ region: "sa-east-1" });
 
@@ -39,16 +40,20 @@ async function handler(
         `https://api.cartola.globo.com/time/id/${teams[j]}/1`
       );
 
-      await ddbClient.send(
-        new PutItemCommand({
-          TableName: "CartolaTable",
-          Item: {
-            id: { S: teams[j] },
-            nome_cartola: { S: response.data.time.nome_cartola },
-            nome_time: { S: response.data.time.nome },
-          },
-        })
-      );
+      const { nome_cartola, nome } = response.data.time;
+
+      if (!nome_cartola || !nome) {
+        const response: APIGatewayProxyResult = {
+          statusCode: 400,
+          body: JSON.stringify({
+            message: "nome_cartola or nome is undefined",
+          }),
+        };
+
+        return response;
+      }
+
+      await postTeam(teams[j], nome_cartola, nome);
     } catch (error) {
       console.error(`Erro ao processar o time ${teams[j]}:`, error);
     }
