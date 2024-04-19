@@ -1,5 +1,4 @@
 import { APIGatewayProxyResult, APIGatewayProxyEvent } from "aws-lambda";
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 
 import axios from "axios";
 import { getTeamsIds } from "../services/getTeamsIds";

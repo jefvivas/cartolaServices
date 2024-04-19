@@ -1,8 +1,5 @@
-import {
-  DynamoDBClient,
-  GetItemCommand,
-} from "@aws-sdk/client-dynamodb";
-import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
+import { DynamoDBClient, GetItemCommand } from "@aws-sdk/client-dynamodb";
+import { marshall } from "@aws-sdk/util-dynamodb";
 
 const ddbClient = new DynamoDBClient({ region: "sa-east-1" });
 

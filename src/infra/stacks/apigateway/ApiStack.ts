@@ -5,6 +5,7 @@ import { Construct } from "constructs";
 interface ApiStackProps extends StackProps {
   uploadTeamsLambdaIntegration: LambdaIntegration;
   putRoundScoreLambdaIntegration: LambdaIntegration;
+  getTeamsScoresLambdaIntegration: LambdaIntegration;
 }
 
 export class ApiStack extends Stack {
@@ -20,6 +21,12 @@ export class ApiStack extends Stack {
     putRoundScoreResource.addMethod(
       "GET",
       props.putRoundScoreLambdaIntegration
+    );
+
+    const getTeamsScoresResource = api.root.addResource("get-teams-scores");
+    getTeamsScoresResource.addMethod(
+      "GET",
+      props.getTeamsScoresLambdaIntegration
     );
   }
 }
