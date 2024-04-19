@@ -9,7 +9,7 @@ const ddbClient = new DynamoDBClient({ region: "sa-east-1" });
 
 export async function putNewScore(
   scores: string[],
-  roundScore: string,
+  roundScore: number,
   teamId: string
 ) {
   const updatedScores = [...(scores || []), roundScore || 0];

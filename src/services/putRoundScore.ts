@@ -7,7 +7,7 @@ import {
 
 import axios from "axios";
 import { getTeamsIds } from "../database/getTeamsIds";
-import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
+import { unmarshall } from "@aws-sdk/util-dynamodb";
 import { putNewScore } from "../database/putNewScore";
 import { getItems } from "../database/getItems";
 
@@ -45,7 +45,8 @@ async function handler(
       `https://api.cartola.globo.com/time/id/${teamsIds[i]}/${round}`
     );
 
-    const roundScore = Number(axiosResponse.data.pontos).toFixed(2);
+    const roundScoreResponse = parseFloat(axiosResponse.data.pontos);
+    const roundScore = Math.round(roundScoreResponse * 100) / 100;
 
     const item = await getItems(teamsIds[i]);
     const team = unmarshall(item);
