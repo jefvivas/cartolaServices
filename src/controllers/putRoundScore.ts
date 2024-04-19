@@ -6,9 +6,9 @@ import {
 } from "@aws-sdk/client-dynamodb";
 
 import axios from "axios";
-import { getTeamsIds } from "../database/getTeamsIds";
+import { getTeamsIds } from "../services/getTeamsIds";
 import { unmarshall } from "@aws-sdk/util-dynamodb";
-import { putNewScore } from "../database/putNewScore";
+import { putNewScore } from "../repository/updateScore";
 import { getItems } from "../repository/getItemsById";
 
 const ddbClient = new DynamoDBClient({ region: "sa-east-1" });
