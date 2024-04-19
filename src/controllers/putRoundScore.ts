@@ -1,17 +1,11 @@
 import { APIGatewayProxyResult, APIGatewayProxyEvent } from "aws-lambda";
-import {
-  DynamoDBClient,
-  GetItemCommand,
-  UpdateItemCommand,
-} from "@aws-sdk/client-dynamodb";
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 
 import axios from "axios";
 import { getTeamsIds } from "../services/getTeamsIds";
 import { unmarshall } from "@aws-sdk/util-dynamodb";
 import { putNewScore } from "../repository/updateScore";
 import { getItems } from "../repository/getItemsById";
-
-const ddbClient = new DynamoDBClient({ region: "sa-east-1" });
 
 async function handler(
   event: APIGatewayProxyEvent

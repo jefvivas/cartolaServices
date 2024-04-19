@@ -1,6 +1,5 @@
 import {
     DynamoDBClient,
-    ScanCommand,
     UpdateItemCommand,
   } from "@aws-sdk/client-dynamodb";
   import { marshall } from "@aws-sdk/util-dynamodb";
