@@ -5,7 +5,7 @@ import { unmarshall } from "@aws-sdk/util-dynamodb";
 import { putNewScore } from "../repository/updateScore";
 import { getItems } from "../repository/getItemsById";
 import { updateAward } from "../repository/updateAward";
-import { getTeamScore } from "../utils/getTeamScore";
+import { getTeamScore } from "../utils/axios/getTeamScore";
 
 async function handler(
   event: APIGatewayProxyEvent

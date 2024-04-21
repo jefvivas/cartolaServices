@@ -1,7 +1,7 @@
 import { APIGatewayProxyResult, APIGatewayProxyEvent } from "aws-lambda";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import axios from "axios";
 import { postTeam } from "../repository/postTeam";
+import { getTeamInfos } from "../utils/axios/getTeamInfos";
 
 const ddbClient = new DynamoDBClient({ region: "sa-east-1" });
 
@@ -36,11 +36,7 @@ async function handler(
 
   for (let j = 0; j < teams.length; j++) {
     try {
-      const response = await axios.get(
-        `https://api.cartola.globo.com/time/id/${teams[j]}/1`
-      );
-
-      const { nome_cartola, nome } = response.data.time;
+      const { nome_cartola, nome } = await getTeamInfos(teams[j]);
 
       if (!nome_cartola || !nome) {
         const response: APIGatewayProxyResult = {
