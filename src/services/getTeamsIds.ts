@@ -1,8 +1,8 @@
-import { getAllTeams } from "../repository/getAllTeams";
+import { getAllTeamsData } from "../repository/getAllTeams";
 
 export async function getTeamsIds() {
   try {
-    const items = await getAllTeams();
+    const items = await getAllTeamsData();
     if (!items) throw new Error("No teams found");
 
     const ids = items.map((item) => item.id);

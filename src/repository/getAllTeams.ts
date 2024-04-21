@@ -1,7 +1,7 @@
 import { DynamoDBClient, ScanCommand } from "@aws-sdk/client-dynamodb";
 import { unmarshall } from "@aws-sdk/util-dynamodb";
 
-export async function getAllTeams() {
+export async function getAllTeamsData() {
   const ddbClient = new DynamoDBClient({ region: "sa-east-1" });
 
   const params = {
