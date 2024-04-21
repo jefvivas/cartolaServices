@@ -9,7 +9,12 @@ export async function getTeamScore(teamId: string, round: string) {
     const roundScoreResponse = parseFloat(response.data.pontos);
     const roundScore = Math.round(roundScoreResponse * 100) / 100;
 
-    return roundScore;
+    const totalScoreResponse = parseFloat(response.data.pontos_campeonato);
+    const totalScore = Math.round(totalScoreResponse * 100) / 100;
+
+    const netWorth = Number(response.data.patrimonio);
+
+    return { roundScore, totalScore, netWorth };
   } catch (e) {
     console.log(e);
     throw e;

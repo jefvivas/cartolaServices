@@ -4,10 +4,12 @@ export async function getTeamsScores() {
   try {
     const items = await getAllTeamsData();
     if (!items) throw new Error("No teams found");
-    const scores = items.map((item) => ({
-      teamId: item.id,
-      score: item.scores,
-      award: item.award || 0,
+    const scores = items.map(({ id, scores, award, totalScore, netWorth }) => ({
+      teamId: id,
+      score: scores,
+      award: award || 0,
+      totalScore: totalScore || 0,
+      netWorth: netWorth || 0,
     }));
 
     return scores;

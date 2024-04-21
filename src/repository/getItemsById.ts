@@ -3,7 +3,7 @@ import { marshall } from "@aws-sdk/util-dynamodb";
 
 const ddbClient = new DynamoDBClient({ region: "sa-east-1" });
 
-export async function getItems(teamId: string) {
+export async function getItemsById(teamId: string) {
   try {
     const getItemParams = {
       TableName: "CartolaTable",

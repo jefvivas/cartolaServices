@@ -3,9 +3,11 @@ import { APIGatewayProxyResult, APIGatewayProxyEvent } from "aws-lambda";
 import { getTeamsIds } from "../services/getTeamsIds";
 import { unmarshall } from "@aws-sdk/util-dynamodb";
 import { putNewScore } from "../repository/updateScore";
-import { getItems } from "../repository/getItemsById";
+import { getItemsById } from "../repository/getItemsById";
 import { updateAward } from "../repository/updateAward";
 import { getTeamScore } from "../utils/axios/getTeamScore";
+import { updateNetWorth } from "../repository/updateNetWorth";
+import { updateTotalScore } from "../repository/updateTotalScore";
 
 async function handler(
   event: APIGatewayProxyEvent
@@ -37,9 +39,12 @@ async function handler(
   const currentRoundScores = [];
 
   for (let i = 0; i < teamsIds.length; i++) {
-    const roundScore = await getTeamScore(teamsIds[i], round);
+    const { roundScore, netWorth, totalScore } = await getTeamScore(
+      teamsIds[i],
+      round
+    );
 
-    const item = await getItems(teamsIds[i]);
+    const item = await getItemsById(teamsIds[i]);
     const team = unmarshall(item);
     currentRoundScores.push({
       score: roundScore,
@@ -48,6 +53,8 @@ async function handler(
     });
 
     await putNewScore(team.scores, roundScore, teamsIds[i]);
+    await updateNetWorth(teamsIds[i], netWorth);
+    await updateTotalScore(teamsIds[i], totalScore);
   }
 
   currentRoundScores.sort((a, b) => b.score - a.score);
