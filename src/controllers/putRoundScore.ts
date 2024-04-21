@@ -44,6 +44,7 @@ async function handler(
     currentRoundScores.push({
       score: roundScore,
       teamId: teamsIds[i],
+      award: team.award,
     });
 
     await putNewScore(team.scores, roundScore, teamsIds[i]);
