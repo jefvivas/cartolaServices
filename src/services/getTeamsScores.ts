@@ -7,6 +7,7 @@ export async function getTeamsScores() {
     const scores = items.map((item) => ({
       teamId: item.id,
       score: item.scores,
+      award: item.award,
     }));
 
     return scores;
