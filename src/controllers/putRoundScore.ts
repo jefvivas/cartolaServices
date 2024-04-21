@@ -1,11 +1,11 @@
 import { APIGatewayProxyResult, APIGatewayProxyEvent } from "aws-lambda";
 
-import axios from "axios";
 import { getTeamsIds } from "../services/getTeamsIds";
 import { unmarshall } from "@aws-sdk/util-dynamodb";
 import { putNewScore } from "../repository/updateScore";
 import { getItems } from "../repository/getItemsById";
 import { updateAward } from "../repository/updateAward";
+import { getTeamScore } from "../utils/getTeamScore";
 
 async function handler(
   event: APIGatewayProxyEvent
@@ -37,12 +37,7 @@ async function handler(
   const currentRoundScores = [];
 
   for (let i = 0; i < teamsIds.length; i++) {
-    const axiosResponse = await axios.get(
-      `https://api.cartola.globo.com/time/id/${teamsIds[i]}/${round}`
-    );
-
-    const roundScoreResponse = parseFloat(axiosResponse.data.pontos);
-    const roundScore = Math.round(roundScoreResponse * 100) / 100;
+    const roundScore = await getTeamScore(teamsIds[i], round);
 
     const item = await getItems(teamsIds[i]);
     const team = unmarshall(item);
