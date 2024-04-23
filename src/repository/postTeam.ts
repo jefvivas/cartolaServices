@@ -10,8 +10,8 @@ export async function postTeam(
 ) {
   const item = marshall({
     id: teamId,
-    nome_cartola: teamOwner,
-    nome_time: teamName,
+    team_owner: teamOwner,
+    team_name: teamName,
   });
 
   await ddbClient.send(
