@@ -3,6 +3,7 @@ import { DataStack } from "./stacks/database/DataStack";
 import { UploadTeamsLambdaStack } from "./stacks/lambdas/UploadTeamsStack";
 import { PutRoundScoreStack } from "./stacks/lambdas/PutRoundScoreStack";
 import { GetTeamsScoresStack } from "./stacks/lambdas/GetTeamsScore";
+import { GetTeamAwardsStack } from "./stacks/lambdas/GetTeamAwards";
 
 import { ApiStack } from "./stacks/apigateway/ApiStack";
 
@@ -24,10 +25,16 @@ const getTeamsScoresStack = new GetTeamsScoresStack(
   }
 );
 
+const getTeamAwardsStack = new GetTeamAwardsStack(app, "GetTeamAwardsStack", {
+  table: dataStack.cartolaTable,
+});
+
 new ApiStack(app, "ApiStack", {
   uploadTeamsLambdaIntegration: uploadTeamsStack.uploadTeamsLambdaIntegration,
   putRoundScoreLambdaIntegration:
     putRoundScoreStack.putRoundScoreLambdaIntegration,
   getTeamsScoresLambdaIntegration:
     getTeamsScoresStack.getTeamsScoresLambdaIntegration,
+  getTeamAwardsLambdaIntegration:
+    getTeamAwardsStack.getTeamAwardsLambdaIntegration,
 });

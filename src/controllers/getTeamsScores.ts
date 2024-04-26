@@ -4,16 +4,14 @@ import { getTeamsScores } from "../services/getTeamsScores";
 
 const ddbClient = new DynamoDBClient({ region: "sa-east-1" });
 
-async function handler(
-  event: APIGatewayProxyEvent
-): Promise<APIGatewayProxyResult> {
-  const items = await getTeamsScores();
+async function handler(): Promise<APIGatewayProxyResult> {
+  const item = await getTeamsScores();
 
-  if (!items) {
+  if (!item) {
     const response: APIGatewayProxyResult = {
       statusCode: 400,
       body: JSON.stringify({
-        message: "items is undefined",
+        message: "item is undefined",
       }),
     };
 
@@ -23,7 +21,7 @@ async function handler(
   const response: APIGatewayProxyResult = {
     statusCode: 201,
     body: JSON.stringify({
-      scores: items,
+      scores: item,
     }),
   };
   return response;
