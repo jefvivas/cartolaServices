@@ -3,7 +3,10 @@ import { marshall } from "@aws-sdk/util-dynamodb";
 
 const ddbClient = new DynamoDBClient({ region: "sa-east-1" });
 
-export async function updateNetWorth(teamId: string, netWorth: number) {
+export async function updateNetWorth(
+  teamId: string,
+  netWorth: number
+): Promise<void> {
   const updateItemParams = {
     TableName: "CartolaTable",
     Key: marshall({ id: teamId }),

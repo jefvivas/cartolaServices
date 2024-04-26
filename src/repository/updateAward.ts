@@ -7,7 +7,7 @@ export async function updateAward(
   teamAwards: number[],
   teamId: string,
   amount: number
-) {
+): Promise<void> {
   const updatedAwards = [...(teamAwards || []), amount || 0];
 
   const updateItemParams = {

@@ -7,7 +7,7 @@ export async function putNewScore(
   scores: number[],
   roundScore: number,
   teamId: string
-) {
+): Promise<void> {
   const updatedScores = [...(scores || []), roundScore || 0];
 
   const updateItemParams = {

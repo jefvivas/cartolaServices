@@ -7,7 +7,7 @@ export async function postTeam(
   teamId: string,
   teamOwner: string,
   teamName: string
-) {
+): Promise<void> {
   const item = marshall({
     id: teamId,
     team_owner: teamOwner,
