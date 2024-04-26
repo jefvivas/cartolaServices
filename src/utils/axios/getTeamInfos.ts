@@ -1,6 +1,7 @@
 import axios from "axios";
+import { GetTeamInfosProps } from "../../interfaces";
 
-export async function getTeamInfos(teamId: string) {
+export async function getTeamInfos(teamId: string): Promise<GetTeamInfosProps> {
   try {
     const response = await axios.get(
       `https://api.cartola.globo.com/time/id/${teamId}/1`

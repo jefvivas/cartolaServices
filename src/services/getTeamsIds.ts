@@ -1,6 +1,6 @@
 import { getAllTeamsData } from "../repository/getAllTeams";
 
-export async function getTeamsIds() {
+export async function getTeamsIds(): Promise<string[]> {
   try {
     const items = await getAllTeamsData();
     if (!items) throw new Error("No teams found");

@@ -7,3 +7,24 @@ export interface TeamDataProps {
   totalScore: number;
   netWorth: number;
 }
+
+export interface GetTeamsScoresProps {
+  teamId: string;
+  team_name: string;
+  team_owner: string;
+  award: number;
+  score: number[];
+  totalScore: number;
+  netWorth: number;
+}
+
+export interface GetTeamInfosProps {
+  nome: string;
+  nome_cartola: string;
+}
+
+export interface GetTeamScoreProps {
+  roundScore: number;
+  totalScore: number;
+  netWorth: number;
+}

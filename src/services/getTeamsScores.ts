@@ -1,6 +1,7 @@
+import { GetTeamsScoresProps } from "../interfaces";
 import { getAllTeamsData } from "../repository/getAllTeams";
 
-export async function getTeamsScores() {
+export async function getTeamsScores(): Promise<GetTeamsScoresProps[]> {
   try {
     const items = await getAllTeamsData();
     if (!items) throw new Error("No teams found");

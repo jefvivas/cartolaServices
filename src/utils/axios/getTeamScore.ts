@@ -1,6 +1,10 @@
 import axios from "axios";
+import { GetTeamScoreProps } from "../../interfaces";
 
-export async function getTeamScore(teamId: string, round: string) {
+export async function getTeamScore(
+  teamId: string,
+  round: string
+): Promise<GetTeamScoreProps> {
   try {
     const response = await axios.get(
       `https://api.cartola.globo.com/time/id/${teamId}/${round}`
