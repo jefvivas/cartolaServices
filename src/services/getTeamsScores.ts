@@ -8,7 +8,7 @@ export async function getTeamsScores() {
       ({ id, scores, award, totalScore, netWorth, team_owner, team_name }) => ({
         teamId: id,
         score: scores,
-        award: award || 0,
+        award: award.reduce((acc: number, curr: number) => acc + curr, 0),
         totalScore: totalScore || 0,
         netWorth: netWorth || 0,
         team_owner,

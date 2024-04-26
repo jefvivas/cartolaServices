@@ -49,7 +49,7 @@ async function handler(
     currentRoundScores.push({
       score: roundScore,
       teamId: teamsIds[i],
-      award: team.award,
+      awards: team.award,
     });
 
     await putNewScore(team.scores, roundScore, teamsIds[i]);
@@ -59,21 +59,36 @@ async function handler(
 
   currentRoundScores.sort((a, b) => b.score - a.score);
 
-  await updateAward(
-    currentRoundScores[0].award || 0,
-    currentRoundScores[0].teamId,
-    15
-  );
-  await updateAward(
-    currentRoundScores[1].award || 0,
-    currentRoundScores[1].teamId,
-    9
-  );
-  await updateAward(
-    currentRoundScores[2].award || 0,
-    currentRoundScores[2].teamId,
-    5
-  );
+  for (let i = 0; i < currentRoundScores.length; i++) {
+    if (i == 0) {
+      await updateAward(
+        currentRoundScores[i].awards,
+        currentRoundScores[i].teamId,
+        15
+      );
+    }
+    else if (i == 1) {
+      await updateAward(
+        currentRoundScores[i].awards,
+        currentRoundScores[i].teamId,
+        9
+      );
+    }
+
+   else if (i == 2) {
+      await updateAward(
+        currentRoundScores[i].awards,
+        currentRoundScores[i].teamId,
+        5
+      );
+    } else {
+      await updateAward(
+        currentRoundScores[i].awards,
+        currentRoundScores[i].teamId,
+        0
+      );
+    }
+  }
 
   const response: APIGatewayProxyResult = {
     statusCode: 201,
