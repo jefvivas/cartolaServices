@@ -4,7 +4,7 @@ import { marshall } from "@aws-sdk/util-dynamodb";
 const ddbClient = new DynamoDBClient({ region: "sa-east-1" });
 
 export async function putNewScore(
-  scores: string[],
+  scores: number[],
   roundScore: number,
   teamId: string
 ) {

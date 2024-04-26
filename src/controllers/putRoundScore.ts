@@ -44,8 +44,8 @@ async function handler(
       round
     );
 
-    const item = await getItemsById(teamsIds[i]);
-    const team = unmarshall(item);
+    const team = await getItemsById(teamsIds[i]);
+
     currentRoundScores.push({
       score: roundScore,
       teamId: teamsIds[i],
@@ -66,16 +66,13 @@ async function handler(
         currentRoundScores[i].teamId,
         15
       );
-    }
-    else if (i == 1) {
+    } else if (i == 1) {
       await updateAward(
         currentRoundScores[i].awards,
         currentRoundScores[i].teamId,
         9
       );
-    }
-
-   else if (i == 2) {
+    } else if (i == 2) {
       await updateAward(
         currentRoundScores[i].awards,
         currentRoundScores[i].teamId,
