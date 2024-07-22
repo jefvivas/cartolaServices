@@ -12,7 +12,7 @@ interface PutCupAwardStackProps extends StackProps {
 }
 
 export class PutCupAwardStack extends Stack {
-  public readonly putCupAwardLambdaIntegration: LambdaIntegration;
+  public readonly putCupAwardsLambdaIntegration: LambdaIntegration;
 
   constructor(scope: Construct, id: string, props: PutCupAwardStackProps) {
     super(scope, id, props);
@@ -29,7 +29,7 @@ export class PutCupAwardStack extends Stack {
           "..",
           "..",
           "controllers",
-          "putCupScore.ts"
+          "putCupAwards.ts"
         ),
         environment: {
           TABLE_NAME: props.table.tableName,
@@ -50,7 +50,7 @@ export class PutCupAwardStack extends Stack {
         resources: [props.table.tableArn],
       })
     );
-    this.putCupAwardLambdaIntegration = new LambdaIntegration(
+    this.putCupAwardsLambdaIntegration = new LambdaIntegration(
       putCupAwardLambda
     );
   }

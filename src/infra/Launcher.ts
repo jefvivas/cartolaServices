@@ -6,6 +6,7 @@ import { GetTeamsScoresStack } from "./stacks/lambdas/GetTeamsScore";
 import { GetTeamAwardsStack } from "./stacks/lambdas/GetTeamAwards";
 
 import { ApiStack } from "./stacks/apigateway/ApiStack";
+import { PutCupAwardStack } from "./stacks/lambdas/PutCupAwardStack";
 
 const app = new App();
 const dataStack = new DataStack(app, "DataStack");
@@ -29,6 +30,10 @@ const getTeamAwardsStack = new GetTeamAwardsStack(app, "GetTeamAwardsStack", {
   table: dataStack.cartolaTable,
 });
 
+const putTeamCupAwardsStack = new PutCupAwardStack(app, "PutCupAwardStack", {
+  table: dataStack.cartolaTable,
+});
+
 new ApiStack(app, "ApiStack", {
   uploadTeamsLambdaIntegration: uploadTeamsStack.uploadTeamsLambdaIntegration,
   putRoundScoreLambdaIntegration:
@@ -37,4 +42,6 @@ new ApiStack(app, "ApiStack", {
     getTeamsScoresStack.getTeamsScoresLambdaIntegration,
   getTeamAwardsLambdaIntegration:
     getTeamAwardsStack.getTeamAwardsLambdaIntegration,
+  putCupAwardsLambdaIntegration:
+    putTeamCupAwardsStack.putCupAwardsLambdaIntegration,
 });
