@@ -1,7 +1,6 @@
 import { APIGatewayProxyResult, APIGatewayProxyEvent } from "aws-lambda";
 
 import { getTeamsIds } from "../services/getTeamsIds";
-import { unmarshall } from "@aws-sdk/util-dynamodb";
 import { putNewScore } from "../repository/updateScore";
 import { getItemsById } from "../repository/getItemsById";
 import { updateAward } from "../repository/updateAward";

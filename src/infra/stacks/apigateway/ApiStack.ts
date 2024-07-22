@@ -7,6 +7,7 @@ interface ApiStackProps extends StackProps {
   putRoundScoreLambdaIntegration: LambdaIntegration;
   getTeamsScoresLambdaIntegration: LambdaIntegration;
   getTeamAwardsLambdaIntegration: LambdaIntegration;
+  putCupScoreLambdaIntegration: LambdaIntegration;
 }
 
 export class ApiStack extends Stack {
@@ -17,6 +18,12 @@ export class ApiStack extends Stack {
 
     const uploadTeamsResource = api.root.addResource("upload-teams");
     uploadTeamsResource.addMethod("POST", props.uploadTeamsLambdaIntegration);
+
+    const putCupScoreResource = api.root.addResource("put-cup-score");
+    putCupScoreResource.addMethod(
+      "GET",
+      props.putCupScoreLambdaIntegration
+    );
 
     const putRoundScoreResource = api.root.addResource("put-round-score");
     putRoundScoreResource.addMethod(
