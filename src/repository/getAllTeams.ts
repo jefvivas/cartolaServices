@@ -6,7 +6,7 @@ export async function getAllTeamsData(): Promise<TeamDataProps[]> {
   const ddbClient = new DynamoDBClient({ region: "sa-east-1" });
 
   const params = {
-    TableName: "CartolaTable",
+    TableName: "Cartola",
   };
 
   try {

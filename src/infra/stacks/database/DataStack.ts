@@ -8,9 +8,9 @@ export class DataStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    this.cartolaTable = new Table(this, "CartolaTable", {
+    this.cartolaTable = new Table(this, "Cartola", {
       partitionKey: { name: "id", type: AttributeType.STRING },
-      tableName: "CartolaTable",
+      tableName: "Cartola",
     });
   }
 }

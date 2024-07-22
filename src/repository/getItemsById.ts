@@ -7,7 +7,7 @@ const ddbClient = new DynamoDBClient({ region: "sa-east-1" });
 export async function getItemsById(teamId: string): Promise<TeamDataProps> {
   try {
     const getItemParams = {
-      TableName: "CartolaTable",
+      TableName: "Cartola",
       Key: marshall({ id: teamId }),
     };
 

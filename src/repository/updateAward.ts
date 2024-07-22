@@ -11,7 +11,7 @@ export async function updateAward(
   const updatedAwards = [...(teamAwards || []), amount || 0];
 
   const updateItemParams = {
-    TableName: "CartolaTable",
+    TableName: "Cartola",
     Key: marshall({ id: teamId }),
     UpdateExpression: "SET award = :newAward",
     ExpressionAttributeValues: marshall({ ":newAward": updatedAwards }),

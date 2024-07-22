@@ -8,7 +8,7 @@ export async function updateNetWorth(
   netWorth: number
 ): Promise<void> {
   const updateItemParams = {
-    TableName: "CartolaTable",
+    TableName: "Cartola",
     Key: marshall({ id: teamId }),
     UpdateExpression: "SET netWorth = :netWorth",
     ExpressionAttributeValues: marshall({ ":netWorth": netWorth }),

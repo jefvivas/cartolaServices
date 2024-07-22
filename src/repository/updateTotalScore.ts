@@ -8,7 +8,7 @@ export async function updateTotalScore(
   totalScore: number
 ): Promise<void> {
   const updateItemParams = {
-    TableName: "CartolaTable",
+    TableName: "Cartola",
     Key: marshall({ id: teamId }),
     UpdateExpression: "SET totalScore = :totalScore",
     ExpressionAttributeValues: marshall({ ":totalScore": totalScore || 0 }),

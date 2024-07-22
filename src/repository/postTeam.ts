@@ -16,7 +16,7 @@ export async function postTeam(
 
   await ddbClient.send(
     new PutItemCommand({
-      TableName: "CartolaTable",
+      TableName: "Cartola",
       Item: item,
     })
   );

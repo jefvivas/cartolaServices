@@ -6,7 +6,7 @@ const ddbClient = new DynamoDBClient({ region: "sa-east-1" });
 export async function getTeamAwardsById(teamId: string): Promise<string[]> {
   try {
     const getItemParams = {
-      TableName: "CartolaTable",
+      TableName: "Cartola",
       Key: marshall({ id: teamId }),
       ProjectionExpression: "award",
     };

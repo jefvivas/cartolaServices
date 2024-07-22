@@ -11,7 +11,7 @@ export async function updateCupAward(
   const updatedAwards = [...(teamCupAwards || []), amount || 0];
 
   const updateItemParams = {
-    TableName: "CartolaTable",
+    TableName: "Cartola",
     Key: marshall({ id: teamId }),
     UpdateExpression: "SET cupAward = :newCupAward",
     ExpressionAttributeValues: marshall({ ":newCupAward": updatedAwards }),

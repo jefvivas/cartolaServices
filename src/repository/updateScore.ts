@@ -11,7 +11,7 @@ export async function putNewScore(
   const updatedScores = [...(scores || []), roundScore || 0];
 
   const updateItemParams = {
-    TableName: "CartolaTable",
+    TableName: "Cartola",
     Key: marshall({ id: teamId }),
     UpdateExpression: "SET scores = :scores",
     ExpressionAttributeValues: marshall({ ":scores": updatedScores }),
