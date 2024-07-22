@@ -6,10 +6,21 @@ export async function getTeamsScores(): Promise<GetTeamsScoresProps[]> {
     const items = await getAllTeamsData();
     if (!items) throw new Error("No teams found");
     const scores = items.map(
-      ({ id, scores, award, totalScore, netWorth, team_owner, team_name }) => ({
+      ({
+        id,
+        scores,
+        award,
+        totalScore,
+        netWorth,
+        team_owner,
+        team_name,
+        cupAward,
+      }) => ({
         teamId: id,
         score: scores,
-        award: award.reduce((acc: number, curr: number) => acc + curr, 0),
+        award:
+          award.reduce((acc: number, curr: number) => acc + curr, 0) +
+          cupAward.reduce((acc: number, curr: number) => acc + curr, 0),
         totalScore: totalScore || 0,
         netWorth: netWorth || 0,
         team_owner,

@@ -6,6 +6,7 @@ export interface TeamDataProps {
   scores: number[];
   totalScore: number;
   netWorth: number;
+  cupAward: number[];
 }
 
 export interface GetTeamsScoresProps {

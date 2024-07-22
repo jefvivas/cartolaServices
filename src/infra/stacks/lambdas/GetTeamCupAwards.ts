@@ -7,19 +7,19 @@ import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Construct } from "constructs";
 import { join } from "path";
 
-interface GetTeamsAwardsStackProps extends StackProps {
+interface GetTeamCupAwardsStackProps extends StackProps {
   table: ITable;
 }
 
-export class GetTeamAwardsStack extends Stack {
-  public readonly getTeamAwardsLambdaIntegration: LambdaIntegration;
+export class GetTeamCupAwardsStack extends Stack {
+  public readonly getTeamCupAwardsLambdaIntegration: LambdaIntegration;
 
-  constructor(scope: Construct, id: string, props: GetTeamsAwardsStackProps) {
+  constructor(scope: Construct, id: string, props: GetTeamCupAwardsStackProps) {
     super(scope, id, props);
 
-    const getTeamAwardsLambda = new NodejsFunction(
+    const getTeamCupAwardsLambda = new NodejsFunction(
       this,
-      "GetTeamAwardsLambda",
+      "GetTeamAwardsCupLambda",
       {
         runtime: Runtime.NODEJS_18_X,
         handler: "handler",
@@ -29,7 +29,7 @@ export class GetTeamAwardsStack extends Stack {
           "..",
           "..",
           "controllers",
-          "getTeamAwards.ts"
+          "getTeamCupAwards.ts"
         ),
         environment: {
           TABLE_NAME: props.table.tableName,
@@ -38,15 +38,15 @@ export class GetTeamAwardsStack extends Stack {
       }
     );
 
-    getTeamAwardsLambda.addToRolePolicy(
+    getTeamCupAwardsLambda.addToRolePolicy(
       new PolicyStatement({
         effect: Effect.ALLOW,
         actions: ["dynamodb:GetItem"],
         resources: [props.table.tableArn],
       })
     );
-    this.getTeamAwardsLambdaIntegration = new LambdaIntegration(
-      getTeamAwardsLambda
+    this.getTeamCupAwardsLambdaIntegration = new LambdaIntegration(
+      getTeamCupAwardsLambda
     );
   }
 }

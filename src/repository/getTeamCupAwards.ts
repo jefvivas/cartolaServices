@@ -19,7 +19,6 @@ export async function getTeamCupAwardsById(teamId: string): Promise<number[]> {
       return [];
     }
 
-    console.log({ cupAwards });
     return cupAwards;
   } catch (e) {
     console.error(e);
