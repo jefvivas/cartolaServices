@@ -13,8 +13,14 @@ export async function getTeamCupAwardsById(teamId: string): Promise<number[]> {
 
     const { Item } = await ddbClient.send(new GetItemCommand(getItemParams));
     if (!Item) throw new Error("No awards found");
-    const item = unmarshall(Item) as number[];
-    return item;
+    const item = unmarshall(Item) as any;
+    const cupAwards = item.cupAward as number[];
+    if (!Array.isArray(cupAwards)) {
+      return [];
+    }
+
+    console.log({ cupAwards });
+    return cupAwards;
   } catch (e) {
     console.error(e);
     throw e;

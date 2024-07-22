@@ -47,14 +47,15 @@ async function handler(
 
   for (let i = 0; i < teamsIds.length; i++) {
     const teamCupAwards = await getTeamCupAwardsById(teamsIds[i]);
+    console.log({ teamCupAwards });
     if (teamsIds[i] === firstTeam) {
-      await updateCupAward(teamCupAwards || [], teamsIds[i], 25);
+      await updateCupAward(teamCupAwards, teamsIds[i], 25);
     } else if (teamsIds[i] === secondTeam) {
-      await updateCupAward(teamCupAwards || [], teamsIds[i], 15);
+      await updateCupAward(teamCupAwards, teamsIds[i], 15);
     } else if (teamsIds[i] === thirdTeam) {
-      await updateCupAward(teamCupAwards || [], teamsIds[i], 10);
+      await updateCupAward(teamCupAwards, teamsIds[i], 10);
     } else {
-      await updateCupAward(teamCupAwards || [], teamsIds[i], 0);
+      await updateCupAward(teamCupAwards, teamsIds[i], 0);
     }
   }
 
