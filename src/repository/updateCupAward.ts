@@ -8,7 +8,7 @@ export async function updateCupAward(
   teamId: string,
   amount: number
 ): Promise<void> {
-  const updatedAwards = [...(teamCupAwards || []), amount || 0];
+  const updatedAwards = [...teamCupAwards, amount];
 
   const updateItemParams = {
     TableName: "CartolaTable",
