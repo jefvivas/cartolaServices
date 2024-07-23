@@ -14,10 +14,12 @@ export interface GetTeamsScoresProps {
   teamId: string;
   team_name: string;
   team_owner: string;
-  award: number;
+  award: number[];
   score: number[];
   totalScore: number;
   netWorth: number;
+  cupAward: number[];
+  halfChampionship: number;
 }
 
 export interface GetTeamInfosProps {

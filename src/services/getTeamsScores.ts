@@ -19,10 +19,9 @@ export async function getTeamsScores(): Promise<GetTeamsScoresProps[]> {
       }) => ({
         teamId: id,
         score: scores,
-        award:
-          award.reduce((acc: number, curr: number) => acc + curr, 0) +
-            cupAward.reduce((acc: number, curr: number) => acc + curr, 0) +
-            halfChampionship || 0,
+        award,
+        cupAward,
+        halfChampionship: halfChampionship || 0,
         totalScore: totalScore || 0,
         netWorth: netWorth || 0,
         team_owner,
