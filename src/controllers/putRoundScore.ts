@@ -7,6 +7,8 @@ import { updateAward } from "../repository/updateAward";
 import { getTeamScore } from "../utils/axios/getTeamScore";
 import { updateNetWorth } from "../repository/updateNetWorth";
 import { updateTotalScore } from "../repository/updateTotalScore";
+import { getAllTeamsData } from "../repository/getAllTeams";
+import { updateHalfChampionshipAward } from "../repository/updateHalfChampionshipAward";
 
 async function handler(
   event: APIGatewayProxyEvent
@@ -84,6 +86,23 @@ async function handler(
         0
       );
     }
+  }
+
+  if (round == "19") {
+    const teamsHalfChampionshipScore = await getAllTeamsData();
+    const teamsScoreSum = teamsHalfChampionshipScore.map((team) => {
+      const totalScoreSum = team.scores.reduce((acc, score) => acc + score, 0);
+      return {
+        id: team.id,
+        totalScoreSum,
+      };
+    });
+
+    const maxScoreTeam = teamsScoreSum.reduce((maxTeam, currentTeam) => {
+      return (currentTeam.totalScoreSum > maxTeam.totalScoreSum) ? currentTeam : maxTeam;
+  });
+
+  await updateHalfChampionshipAward(maxScoreTeam.id);
   }
 
   const response: APIGatewayProxyResult = {
