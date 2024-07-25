@@ -4,7 +4,6 @@ export interface TeamDataProps {
   team_owner: string;
   award: number[];
   scores: number[];
-  totalScore: number;
   netWorth: number;
   cupAward: number[];
   halfChampionship: number;
@@ -16,7 +15,6 @@ export interface GetTeamsScoresProps {
   team_owner: string;
   award: number[];
   score: number[];
-  totalScore: number;
   netWorth: number;
   cupAward: number[];
   halfChampionship: number;
@@ -29,6 +27,5 @@ export interface GetTeamInfosProps {
 
 export interface GetTeamScoreProps {
   roundScore: number;
-  totalScore: number;
   netWorth: number;
 }

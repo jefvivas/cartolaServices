@@ -13,12 +13,9 @@ export async function getTeamScore(
     const roundScoreResponse = parseFloat(response.data.pontos);
     const roundScore = Math.round(roundScoreResponse * 100) / 100;
 
-    const totalScoreResponse = parseFloat(response.data.pontos_campeonato);
-    const totalScore = Math.round(totalScoreResponse * 100) / 100;
-
     const netWorth = Number(response.data.patrimonio);
 
-    return { roundScore, totalScore, netWorth };
+    return { roundScore, netWorth };
   } catch (e) {
     console.log(e);
     throw e;

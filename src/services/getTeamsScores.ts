@@ -10,7 +10,7 @@ export async function getTeamsScores(): Promise<GetTeamsScoresProps[]> {
         id,
         scores,
         award,
-        totalScore,
+
         netWorth,
         team_owner,
         team_name,
@@ -22,7 +22,6 @@ export async function getTeamsScores(): Promise<GetTeamsScoresProps[]> {
         award,
         cupAward,
         halfChampionship: halfChampionship || 0,
-        totalScore: totalScore || 0,
         netWorth: netWorth || 0,
         team_owner,
         team_name,
