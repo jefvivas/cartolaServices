@@ -9,6 +9,10 @@ import { ApiStack } from "./stacks/apigateway/ApiStack";
 import { PutCupAwardStack } from "./stacks/lambdas/PutCupAwardStack";
 import { GetTeamCupAwardsStack } from "./stacks/lambdas/GetTeamCupAwards";
 
+import { config } from "dotenv";
+
+config();
+
 const app = new App();
 const dataStack = new DataStack(app, "DataStack");
 
@@ -37,7 +41,7 @@ const getTeamCupAwardsStack = new GetTeamCupAwardsStack(
   {
     table: dataStack.cartolaTable,
   }
-)
+);
 
 const putTeamCupAwardsStack = new PutCupAwardStack(app, "PutCupAwardStack", {
   table: dataStack.cartolaTable,

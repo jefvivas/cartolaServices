@@ -10,7 +10,9 @@ export async function updateHalfChampionshipAward(
     TableName: "Cartola",
     Key: marshall({ id: teamId }),
     UpdateExpression: "SET halfChampionship = :halfChampionship",
-    ExpressionAttributeValues: marshall({ ":halfChampionship": 30 }),
+    ExpressionAttributeValues: marshall({
+      ":halfChampionship": Number(process.env.HALF_SEASON_WINNER),
+    }),
   };
 
   try {

@@ -49,11 +49,15 @@ async function handler(
     const teamCupAwards = await getTeamCupAwardsById(teamsIds[i]);
     console.log({ teamCupAwards });
     if (teamsIds[i] === firstTeam) {
-      await updateCupAward(teamCupAwards, teamsIds[i], 25);
+      await updateCupAward(
+        teamCupAwards,
+        teamsIds[i],
+        Number(process.env.CUP_WINNER)
+      );
     } else if (teamsIds[i] === secondTeam) {
-      await updateCupAward(teamCupAwards, teamsIds[i], 15);
+      await updateCupAward(teamCupAwards, teamsIds[i], Number(process.env.CUP_SECOND));
     } else if (teamsIds[i] === thirdTeam) {
-      await updateCupAward(teamCupAwards, teamsIds[i], 10);
+      await updateCupAward(teamCupAwards, teamsIds[i], Number(process.env.CUP_THIRD));
     } else {
       await updateCupAward(teamCupAwards, teamsIds[i], 0);
     }

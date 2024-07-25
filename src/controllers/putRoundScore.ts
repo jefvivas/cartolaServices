@@ -60,19 +60,19 @@ async function handler(
       await updateAward(
         currentRoundScores[i].awards,
         currentRoundScores[i].teamId,
-        15
+        Number(process.env.ROUND_WINNER)
       );
     } else if (i == 1) {
       await updateAward(
         currentRoundScores[i].awards,
         currentRoundScores[i].teamId,
-        9
+        Number(process.env.ROUND_SECOND)
       );
     } else if (i == 2) {
       await updateAward(
         currentRoundScores[i].awards,
         currentRoundScores[i].teamId,
-        5
+        Number(process.env.ROUND_THIRD)
       );
     } else {
       await updateAward(

@@ -17,26 +17,25 @@ export class PutCupAwardStack extends Stack {
   constructor(scope: Construct, id: string, props: PutCupAwardStackProps) {
     super(scope, id, props);
 
-    const putCupAwardLambda = new NodejsFunction(
-      this,
-      "PutCupAwardLambda",
-      {
-        runtime: Runtime.NODEJS_18_X,
-        handler: "handler",
-        entry: join(
-          __dirname,
-          "..",
-          "..",
-          "..",
-          "controllers",
-          "putCupAwards.ts"
-        ),
-        environment: {
-          TABLE_NAME: props.table.tableName,
-        },
-        timeout: Duration.seconds(10),
-      }
-    );
+    const putCupAwardLambda = new NodejsFunction(this, "PutCupAwardLambda", {
+      runtime: Runtime.NODEJS_18_X,
+      handler: "handler",
+      entry: join(
+        __dirname,
+        "..",
+        "..",
+        "..",
+        "controllers",
+        "putCupAwards.ts"
+      ),
+      environment: {
+        TABLE_NAME: props.table.tableName,
+        CUP_WINNER: process.env.CUP_WINNER as string,
+        CUP_SECOND: process.env.CUP_SECOND as string,
+        CUP_THIRD: process.env.CUP_THIRD as string,
+      },
+      timeout: Duration.seconds(10),
+    });
 
     putCupAwardLambda.addToRolePolicy(
       new PolicyStatement({

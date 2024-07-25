@@ -33,6 +33,10 @@ export class PutRoundScoreStack extends Stack {
         ),
         environment: {
           TABLE_NAME: props.table.tableName,
+          ROUND_WINNER: process.env.ROUND_WINNER as string,
+          ROUND_SECOND: process.env.ROUND_SECOND as string,
+          ROUND_THIRD: process.env.ROUND_THIRD as string,
+          HALF_SEASON_WINNER: process.env.HALF_SEASON_WINNER as string,
         },
         timeout: Duration.seconds(10),
       }
