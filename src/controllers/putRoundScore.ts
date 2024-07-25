@@ -6,7 +6,6 @@ import { getItemsById } from "../repository/getItemsById";
 import { updateAward } from "../repository/updateAward";
 import { getTeamScore } from "../utils/axios/getTeamScore";
 import { updateNetWorth } from "../repository/updateNetWorth";
-import { updateTotalScore } from "../repository/updateTotalScore";
 import { getAllTeamsData } from "../repository/getAllTeams";
 import { updateHalfChampionshipAward } from "../repository/updateHalfChampionshipAward";
 
@@ -40,10 +39,7 @@ async function handler(
   const currentRoundScores = [];
 
   for (let i = 0; i < teamsIds.length; i++) {
-    const { roundScore, netWorth, totalScore } = await getTeamScore(
-      teamsIds[i],
-      round
-    );
+    const { roundScore, netWorth } = await getTeamScore(teamsIds[i], round);
 
     const team = await getItemsById(teamsIds[i]);
 
@@ -55,7 +51,6 @@ async function handler(
 
     await putNewScore(team.scores, roundScore, teamsIds[i]);
     await updateNetWorth(teamsIds[i], netWorth);
-    await updateTotalScore(teamsIds[i], totalScore);
   }
 
   currentRoundScores.sort((a, b) => b.score - a.score);
@@ -99,10 +94,12 @@ async function handler(
     });
 
     const maxScoreTeam = teamsScoreSum.reduce((maxTeam, currentTeam) => {
-      return (currentTeam.totalScoreSum > maxTeam.totalScoreSum) ? currentTeam : maxTeam;
-  });
+      return currentTeam.totalScoreSum > maxTeam.totalScoreSum
+        ? currentTeam
+        : maxTeam;
+    });
 
-  await updateHalfChampionshipAward(maxScoreTeam.id);
+    await updateHalfChampionshipAward(maxScoreTeam.id);
   }
 
   const response: APIGatewayProxyResult = {
