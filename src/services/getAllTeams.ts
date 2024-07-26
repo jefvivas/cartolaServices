@@ -1,5 +1,5 @@
 import { DynamoDBClient, ScanCommand } from "@aws-sdk/client-dynamodb";
-import { unmarshall } from "@aws-sdk/util-dynamodb";
+import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 import { TeamDataProps } from "../interfaces";
 
 export async function getAllTeamsData(): Promise<TeamDataProps[]> {
@@ -7,6 +7,10 @@ export async function getAllTeamsData(): Promise<TeamDataProps[]> {
 
   const params = {
     TableName: "Cartola",
+    FilterExpression: "id <> :excludedId",
+    ExpressionAttributeValues: marshall({
+      ":excludedId": "RoundNumber",
+    }),
   };
 
   try {
