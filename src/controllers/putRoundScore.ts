@@ -1,13 +1,13 @@
 import { APIGatewayProxyResult, APIGatewayProxyEvent } from "aws-lambda";
 
 import { getTeamsIds } from "../services/getTeamsIds";
-import { putNewScore } from "../repository/updateScore";
-import { getItemsById } from "../repository/getItemsById";
-import { updateAward } from "../repository/updateAward";
+import { putNewScore } from "../services/updateScore";
+import { getItemsById } from "../services/getItemsById";
+import { updateAward } from "../services/updateAward";
 import { getTeamScore } from "../utils/axios/getTeamScore";
-import { updateNetWorth } from "../repository/updateNetWorth";
-import { getAllTeamsData } from "../repository/getAllTeams";
-import { updateHalfChampionshipAward } from "../repository/updateHalfChampionshipAward";
+import { updateNetWorth } from "../services/updateNetWorth";
+import { getAllTeamsData } from "../services/getAllTeams";
+import { updateHalfChampionshipAward } from "../services/updateHalfChampionshipAward";
 
 async function handler(
   event: APIGatewayProxyEvent
@@ -103,7 +103,7 @@ async function handler(
   }
 
   const response: APIGatewayProxyResult = {
-    statusCode: 201,
+    statusCode: 200,
     body: JSON.stringify({
       message: "Scored successfully inserted",
     }),

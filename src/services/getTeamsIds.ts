@@ -1,4 +1,4 @@
-import { getAllTeamsData } from "../repository/getAllTeams";
+import { getAllTeamsData } from "./getAllTeams";
 
 export async function getTeamsIds(): Promise<string[]> {
   try {

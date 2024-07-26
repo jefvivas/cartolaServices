@@ -29,3 +29,8 @@ export interface GetTeamScoreProps {
   roundScore: number;
   netWorth: number;
 }
+
+export interface RoundDataProps {
+  id: string;
+  currentRound: number;
+}

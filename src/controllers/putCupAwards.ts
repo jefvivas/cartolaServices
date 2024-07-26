@@ -1,9 +1,8 @@
 import { APIGatewayProxyResult, APIGatewayProxyEvent } from "aws-lambda";
 
 import { getTeamsIds } from "../services/getTeamsIds";
-import { updateCupAward } from "../repository/updateCupAward";
-import { getItemsById } from "../repository/getItemsById";
-import { getTeamCupAwardsById } from "../repository/getTeamCupAwards";
+import { updateCupAward } from "../services/updateCupAward";
+import { getTeamCupAwardsById } from "../services/getTeamCupAwards";
 
 async function handler(
   event: APIGatewayProxyEvent
@@ -55,9 +54,17 @@ async function handler(
         Number(process.env.CUP_WINNER)
       );
     } else if (teamsIds[i] === secondTeam) {
-      await updateCupAward(teamCupAwards, teamsIds[i], Number(process.env.CUP_SECOND));
+      await updateCupAward(
+        teamCupAwards,
+        teamsIds[i],
+        Number(process.env.CUP_SECOND)
+      );
     } else if (teamsIds[i] === thirdTeam) {
-      await updateCupAward(teamCupAwards, teamsIds[i], Number(process.env.CUP_THIRD));
+      await updateCupAward(
+        teamCupAwards,
+        teamsIds[i],
+        Number(process.env.CUP_THIRD)
+      );
     } else {
       await updateCupAward(teamCupAwards, teamsIds[i], 0);
     }

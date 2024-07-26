@@ -1,6 +1,6 @@
 import { APIGatewayProxyResult, APIGatewayProxyEvent } from "aws-lambda";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { postTeam } from "../repository/postTeam";
+import { postTeam } from "../services/postTeam";
 import { getTeamInfos } from "../utils/axios/getTeamInfos";
 
 const ddbClient = new DynamoDBClient({ region: "sa-east-1" });

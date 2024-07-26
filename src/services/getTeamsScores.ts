@@ -1,5 +1,5 @@
 import { GetTeamsScoresProps } from "../interfaces";
-import { getAllTeamsData } from "../repository/getAllTeams";
+import { getAllTeamsData } from "./getAllTeams";
 
 export async function getTeamsScores(): Promise<GetTeamsScoresProps[]> {
   try {

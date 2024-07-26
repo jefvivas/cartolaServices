@@ -1,7 +1,6 @@
 import { APIGatewayProxyResult, APIGatewayProxyEvent } from "aws-lambda";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { getTeamAwards } from "../services/getTeamAwards";
-import { getTeamCupAwardsById } from "../repository/getTeamCupAwards";
+import { getTeamCupAwardsById } from "../services/getTeamCupAwards";
 
 const ddbClient = new DynamoDBClient({ region: "sa-east-1" });
 
@@ -44,7 +43,7 @@ async function handler(
   }
 
   const response: APIGatewayProxyResult = {
-    statusCode: 201,
+    statusCode: 200,
     body: JSON.stringify(awards),
   };
   return response;

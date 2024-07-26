@@ -10,6 +10,7 @@ import { PutCupAwardStack } from "./stacks/lambdas/PutCupAwardStack";
 import { GetTeamCupAwardsStack } from "./stacks/lambdas/GetTeamCupAwards";
 
 import { config } from "dotenv";
+import { MarketCheckerStack } from "./stacks/lambdas/MarketChecker";
 
 config();
 
@@ -44,6 +45,10 @@ const getTeamCupAwardsStack = new GetTeamCupAwardsStack(
 );
 
 const putTeamCupAwardsStack = new PutCupAwardStack(app, "PutCupAwardStack", {
+  table: dataStack.cartolaTable,
+});
+
+new MarketCheckerStack(app, "MarketCheckerStack", {
   table: dataStack.cartolaTable,
 });
 

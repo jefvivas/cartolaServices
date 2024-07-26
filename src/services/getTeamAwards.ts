@@ -1,4 +1,4 @@
-import { getTeamAwardsById } from "../repository/getTeamAwards";
+import { getTeamAwardsById } from "./getTeamAwardsById";
 
 export async function getTeamAwards(teamId: string): Promise<string[]> {
   try {
