@@ -1,4 +1,5 @@
 import { getCurrentRound } from "../services/getCurrentRound";
+import { updateCurrentRound } from "../services/updateCurrentRound";
 import { finishRound } from "../utils/axios/finishRound";
 import { getOfficialCurrentRound } from "../utils/axios/getOfficialCurrentRound";
 
@@ -8,6 +9,7 @@ async function handler() {
 
   if (officialCurrentRound !== appCurrentRound) {
     await finishRound(officialCurrentRound);
+    await updateCurrentRound(officialCurrentRound);
   }
 }
 

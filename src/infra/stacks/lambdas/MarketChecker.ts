@@ -36,7 +36,12 @@ export class MarketCheckerStack extends Stack {
     marketCheckerLambda.addToRolePolicy(
       new PolicyStatement({
         effect: Effect.ALLOW,
-        actions: ["dynamodb:GetItem"],
+        actions: [
+          "dynamodb:PutItem",
+          "dynamodb:Scan",
+          "dynamodb:UpdateItem",
+          "dynamodb:GetItem",
+        ],
         resources: [props.table.tableArn],
       })
     );
