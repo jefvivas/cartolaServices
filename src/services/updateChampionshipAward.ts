@@ -9,7 +9,7 @@ export async function updateChampionshipAward(teamId: string): Promise<void> {
     Key: marshall({ id: teamId }),
     UpdateExpression: "SET champion = :champion",
     ExpressionAttributeValues: marshall({
-      ":champion": Number(process.env.HALF_SEASON_WINNER),
+      ":champion": Number(process.env.SEASON_WINNER),
     }),
   };
 

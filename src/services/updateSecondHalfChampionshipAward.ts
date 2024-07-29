@@ -11,7 +11,7 @@ export async function updateSecondHalfChampionshipAward(
     Key: marshall({ id: teamId }),
     UpdateExpression: "SET secondHalfChampionship = :secondHalfChampionship",
     ExpressionAttributeValues: marshall({
-      ":secondHalfChampionship": Number(process.env.SEASON_WINNER),
+      ":secondHalfChampionship": Number(process.env.HALF_SEASON_WINNER),
     }),
   };
 
