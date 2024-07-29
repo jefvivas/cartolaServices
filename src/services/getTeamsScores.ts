@@ -10,21 +10,26 @@ export async function getTeamsScores(): Promise<GetTeamsScoresProps[]> {
         id,
         scores,
         award,
-
         netWorth,
         team_owner,
         team_name,
         cupAward,
         halfChampionship,
+        secondHalfChampionship,
+        richerTeam,
+        champion,
       }) => ({
         teamId: id,
         score: scores,
         award,
         cupAward,
         halfChampionship: halfChampionship || 0,
+        secondHalfChampionship: secondHalfChampionship || 0,
+        richerTeam: richerTeam || 0,
         netWorth: netWorth || 0,
         team_owner,
         team_name,
+        champion: champion || 0,
       })
     );
 

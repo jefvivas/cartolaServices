@@ -3,15 +3,13 @@ import { marshall } from "@aws-sdk/util-dynamodb";
 
 const ddbClient = new DynamoDBClient({ region: "sa-east-1" });
 
-export async function updateChampionshipAward(
-  teamId: string
-): Promise<void> {
+export async function updateChampionshipAward(teamId: string): Promise<void> {
   const updateItemParams = {
     TableName: "Cartola",
     Key: marshall({ id: teamId }),
-    UpdateExpression: "SET championship = :championship",
+    UpdateExpression: "SET champion = :champion",
     ExpressionAttributeValues: marshall({
-      ":championship": Number(process.env.HALF_SEASON_WINNER),
+      ":champion": Number(process.env.HALF_SEASON_WINNER),
     }),
   };
 

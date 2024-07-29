@@ -7,9 +7,9 @@ export async function updateRicherAward(teamId: string): Promise<void> {
   const updateItemParams = {
     TableName: "Cartola",
     Key: marshall({ id: teamId }),
-    UpdateExpression: "SET richer = :richer",
+    UpdateExpression: "SET richerTeam = :richerTeam",
     ExpressionAttributeValues: marshall({
-      ":richer": Number(process.env.SEASON_RICHER),
+      ":richerTeam": Number(process.env.SEASON_RICHER),
     }),
   };
 
