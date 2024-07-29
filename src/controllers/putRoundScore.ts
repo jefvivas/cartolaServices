@@ -8,6 +8,9 @@ import { getTeamScore } from "../utils/axios/getTeamScore";
 import { updateNetWorth } from "../services/updateNetWorth";
 import { getAllTeamsData } from "../services/getAllTeams";
 import { updateHalfChampionshipAward } from "../services/updateHalfChampionshipAward";
+import { updateSecondHalfChampionshipAward } from "../services/updateSecondHalfChampionshipAward";
+import { updateChampionshipAward } from "../services/updateChampionshipAward";
+import { updateRicherAward } from "../services/updateRicherAward";
 
 async function handler(
   event: APIGatewayProxyEvent
@@ -86,7 +89,9 @@ async function handler(
   if (round == "19") {
     const teamsHalfChampionshipScore = await getAllTeamsData();
     const teamsScoreSum = teamsHalfChampionshipScore.map((team) => {
-      const totalScoreSum = team.scores.reduce((acc, score) => acc + score, 0);
+      const totalScoreSum = team.scores
+        .slice(0, 19)
+        .reduce((acc, score) => acc + score, 0);
       return {
         id: team.id,
         totalScoreSum,
@@ -100,6 +105,53 @@ async function handler(
     });
 
     await updateHalfChampionshipAward(maxScoreTeam.id);
+  }
+
+  if (round == "38") {
+    const teamData = await getAllTeamsData();
+    const teamsSecondHalfScoreSum = teamData.map((team) => {
+      const totalScoreSum = team.scores
+        .slice(19, 38)
+        .reduce((acc, score) => acc + score, 0);
+      return {
+        id: team.id,
+        totalScoreSum,
+      };
+    });
+
+    const maxSecondHalfScoreTeam = teamsSecondHalfScoreSum.reduce(
+      (maxTeam, currentTeam) => {
+        return currentTeam.totalScoreSum > maxTeam.totalScoreSum
+          ? currentTeam
+          : maxTeam;
+      }
+    );
+
+    const teamsChampionshipScoreSum = teamData.map((team) => {
+      const totalScoreSum = team.scores.reduce((acc, score) => acc + score, 0);
+      return {
+        id: team.id,
+        totalScoreSum,
+      };
+    });
+
+    const maxChampionshipScoreTeam = teamsChampionshipScoreSum.reduce(
+      (maxTeam, currentTeam) => {
+        return currentTeam.totalScoreSum > maxTeam.totalScoreSum
+          ? currentTeam
+          : maxTeam;
+      }
+    );
+
+    const richerTeam = teamData.reduce((richerTeam, currentTeam) => {
+      return currentTeam.netWorth > richerTeam.netWorth
+        ? currentTeam
+        : richerTeam;
+    });
+
+    await updateSecondHalfChampionshipAward(maxSecondHalfScoreTeam.id);
+    await updateChampionshipAward(maxChampionshipScoreTeam.id);
+    await updateRicherAward(richerTeam.id);
   }
 
   const response: APIGatewayProxyResult = {

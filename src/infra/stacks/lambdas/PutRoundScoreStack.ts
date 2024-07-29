@@ -37,6 +37,8 @@ export class PutRoundScoreStack extends Stack {
           ROUND_SECOND: process.env.ROUND_SECOND as string,
           ROUND_THIRD: process.env.ROUND_THIRD as string,
           HALF_SEASON_WINNER: process.env.HALF_SEASON_WINNER as string,
+          SEASON_WINNER: process.env.SEASON_WINNER as string,
+          SEASON_RICHER: process.env.SEASON_RICHER as string,
         },
         timeout: Duration.seconds(10),
       }

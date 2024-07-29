@@ -2,6 +2,7 @@ import { APIGatewayProxyResult, APIGatewayProxyEvent } from "aws-lambda";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { postTeam } from "../services/postTeam";
 import { getTeamInfos } from "../utils/axios/getTeamInfos";
+import { postCurrentRound } from "../services/postCurrentRound";
 
 const ddbClient = new DynamoDBClient({ region: "sa-east-1" });
 
@@ -54,6 +55,8 @@ async function handler(
       console.error(`Erro ao processar o time ${teams[j]}:`, error);
     }
   }
+
+  await postCurrentRound();
 
   const response: APIGatewayProxyResult = {
     statusCode: 201,
