@@ -23,6 +23,11 @@ async function handler(): Promise<APIGatewayProxyResult> {
     body: JSON.stringify({
       scores: item,
     }),
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+    },
   };
   return response;
 }
